@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00f"
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/layoutLoadFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroupBottom"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/btnHomeMenu"
+            style="@style/btnMenuBottom"
+            android:checked="true"
+            android:text="@string/home"/>
+
+        <RadioButton
+            android:id="@+id/btnRankMenu"
+            style="@style/btnMenuBottom"
+            android:text="@string/rankingList"/>
+
+        <RadioButton
+            android:id="@+id/btnDiscoverMenu"
+            style="@style/btnMenuBottom"
+            android:text="@string/discover"/>
+
+        <RadioButton
+            android:id="@+id/btnMineMenu"
+            style="@style/btnMenuBottom"
+            android:text="@string/mine"/>
+    </RadioGroup>
+
+</LinearLayout>
