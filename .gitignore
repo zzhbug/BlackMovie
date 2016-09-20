@@ -37,11 +37,5 @@ captures/
 
 # Keystore files
 *.jks
-.idea/
-app/libs/
-app/src/main/java/com/zzh/blackmovie/db/
-app/src/main/java/com/zzh/blackmovie/http/
-app/src/main/java/com/zzh/blackmovie/model/
-app/src/main/java/com/zzh/blackmovie/ui/
-app/src/main/java/com/zzh/blackmovie/utils/
-app/src/main/res/drawable/
+
+
