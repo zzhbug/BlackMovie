@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#fff</color>
+    <color name="colorTabTextNormal">#8C8C8C</color>
+    <color name="colorTabTextChecked">#F42C2C</color>
+    <color name="colorTopbarBg">#de1a1919</color>
+    <color name="colorWhiteAlpha">#f5eae8e8</color>
 </resources>

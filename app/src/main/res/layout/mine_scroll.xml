@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/colorWhiteAlpha">
+            <ImageView
+                android:id="@+id/imgUserPhoto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/userphoto_default"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/textLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:text="登录/注册"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/textSmallTitle"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="你的地盘你做主，做主怎能不登录？"
+                android:textSize="11sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/colorTabTextNormal"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearHistory"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_history"
+                android:padding="7dp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="观影历史"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_more"
+                android:padding="7dp"/>
+
+        </LinearLayout>
+        <include layout="@layout/custom_view"/>
+
+        <LinearLayout
+            android:id="@+id/learnDownload"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_download"
+                android:padding="7dp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="离线缓存"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_more"
+                android:padding="7dp"/>
+
+        </LinearLayout>
+        <include layout="@layout/custom_view"/>
+
+        <LinearLayout
+            android:id="@+id/learnFav"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_fav_normal"
+                android:padding="7dp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="我的收藏"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_more"
+                android:padding="7dp"/>
+
+        </LinearLayout>
+        <include layout="@layout/custom_view"/>
+
+        <LinearLayout
+            android:id="@+id/learnFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_feedback"
+                android:padding="7dp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="我要反馈"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_more"
+                android:padding="7dp"/>
+
+        </LinearLayout>
+        <include layout="@layout/custom_view"/>
+
+        <LinearLayout
+            android:id="@+id/learnSet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_set"
+                android:padding="7dp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="我的设置"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_more"
+                android:padding="7dp"/>
+
+        </LinearLayout>
+        <include layout="@layout/custom_view"/>
+
+        <LinearLayout
+            android:id="@+id/learnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_logout"
+                android:padding="7dp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="退出账号"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="@dimen/imageWidth"
+                android:layout_height="@dimen/imageWidth"
+                android:src="@mipmap/icon_more"
+                android:padding="7dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
