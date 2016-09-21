@@ -3,6 +3,7 @@ package com.zzh.blackmovie.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -36,16 +37,17 @@ public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> {
 
     @Override
     protected void onBindBaseViewHolder(ViewHolder holder, int dataPosition, int itemPosition) {
+        if (this.getItemCount()<=(itemPosition+1)) {
+            return;
+        }
+        Log.d(TAG, getItemCount()+"onBindBaseViewHolder: "+itemPosition);
         TextView textMovieTitle = (TextView) holder.getView(R.id.textMovieTitleItem);
-        //        TextView view = (TextView) holder.getView(R.id.textMovieMoreItem);
-        textMovieTitle.setText(mData.get(dataPosition).getCategoryzdName());
-        List<ProductmovieList> productmovieList = mData.get(dataPosition).getProductmovieList();
+        textMovieTitle.setText(mData.get(itemPosition).getCategoryzdName());
+        List<ProductmovieList> productmovieList = mData.get(itemPosition).getProductmovieList();
         mRecyclerViewItem = ((RecyclerView) holder.getView(R.id.recyclerItem));
         mRecyclerViewItem.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         RecyclerItemAdapter adapter = new RecyclerItemAdapter(mContext, productmovieList, R.layout.moive_list_item);
         mRecyclerViewItem.setAdapter(adapter);
-
-
     }
 
 }
