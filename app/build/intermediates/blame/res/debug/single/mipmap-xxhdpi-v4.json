@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\AndroidStudio\\AndroidStudioProjects\\Black\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\ic_launcher.png",
+        "source": "D:\\AndroidStudio\\AndroidStudioProjects\\Black\\BlackMovie\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
         "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\ic_launcher.png",
         "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     },
