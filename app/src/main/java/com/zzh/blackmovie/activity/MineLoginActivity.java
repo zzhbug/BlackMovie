@@ -53,7 +53,7 @@ public class MineLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine_login);
         ButterKnife.bind(this);
-      //  initView();
+        initView();
 
     }
 

@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".common.AppContext"
@@ -26,6 +26,41 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
+        <!-- 友盟 -->
+
+        <activity android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:theme="@style/Theme.UMDefault"
+            android:excludeFromRecents="true"/>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57e10a71e0f55a34030006c3">
+        </meta-data>
+
+
+        <!--QQ QZone-->
+
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask">
+
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <data android:scheme="tencent100424468"/>
+        </intent-filter>
+
+    </activity>
+
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"/>
+
+
         <!--******************************************************************-->
         <activity android:name=".activity.MainActivity">
             <intent-filter>
