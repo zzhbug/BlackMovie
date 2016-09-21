@@ -1,9 +1,11 @@
 package com.zzh.blackmovie.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -19,7 +21,7 @@ import java.util.List;
  */
 public class RecyclerItemAdapter extends RecyclerBaseAdapter<ProductmovieList> {
 
-    private static final String TAG ="RecyclerItemAdapter" ;
+    private static final String TAG = "RecyclerItemAdapter";
     private final int screenWidth;
 
     public RecyclerItemAdapter(Context context, List<ProductmovieList> data, int itemId) {
@@ -31,16 +33,19 @@ public class RecyclerItemAdapter extends RecyclerBaseAdapter<ProductmovieList> {
     @Override
     protected ViewHolder onCreateBaseViewHolder(ViewHolder fistViewHolder, ViewGroup parent, int viewType) {
         View coverView = fistViewHolder.getCoverView();
+        //-------------------设置Item的高度和宽度------------------
         View cardView = coverView.findViewById(R.id.cardHomeView);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(screenWidth / 3, 200);
+        int width = screenWidth / 3;
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(width, width / 3 * 4 + 60);
         cardView.setLayoutParams(params);
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) cardView.getLayoutParams();
-//        int margin = layoutParams.leftMargin + layoutParams.rightMargin;
-//        int imgWidth = (screenWidth - 3 *margin) / 3;
-//        Log.d(TAG, "onCreateBaseViewHolder: " + imgWidth);
-//        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(i, i / 3 * 2);
-//        View view2 = coverView.findViewById(R.id.imgMoviePic);
-//        view2.setLayoutParams(params1);
+
+        //设置图片的高度和宽度
+        int margin = cardView.getMeasuredWidth() + cardView.getMeasuredHeight();
+        int imgWidth = (screenWidth - 3 * margin) / 3;
+        Log.d(TAG, "onCreateBaseViewHolder: " + imgWidth);
+        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(imgWidth, imgWidth / 3 * 4);
+        View view2 = coverView.findViewById(R.id.imgMoviePic);
+        view2.setLayoutParams(params1);
 
         return fistViewHolder;
     }

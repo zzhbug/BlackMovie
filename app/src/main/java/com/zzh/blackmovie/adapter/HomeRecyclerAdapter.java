@@ -38,9 +38,8 @@ public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> {
     protected void onBindBaseViewHolder(ViewHolder holder, int dataPosition, int itemPosition) {
         TextView textMovieTitle = (TextView) holder.getView(R.id.textMovieTitleItem);
         //        TextView view = (TextView) holder.getView(R.id.textMovieMoreItem);
-        textMovieTitle.setText(mData.get(itemPosition).getCategoryzdName());
-
-        List<ProductmovieList> productmovieList = mData.get(itemPosition).getProductmovieList();
+        textMovieTitle.setText(mData.get(dataPosition).getCategoryzdName());
+        List<ProductmovieList> productmovieList = mData.get(dataPosition).getProductmovieList();
         mRecyclerViewItem = ((RecyclerView) holder.getView(R.id.recyclerItem));
         mRecyclerViewItem.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         RecyclerItemAdapter adapter = new RecyclerItemAdapter(mContext, productmovieList, R.layout.moive_list_item);

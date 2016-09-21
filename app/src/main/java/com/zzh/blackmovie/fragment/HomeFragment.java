@@ -68,7 +68,7 @@ public class HomeFragment extends BaseFragment {
         mHeaderView.setLayoutParams(params);
         Log.d(TAG, "initView: "+mHeaderView);
         //----------------添加头布局------------------------------------------
-
+        mHomeAdapter.addHeadView(mHeaderView);
         mRcyclerHome.setAdapter(mHomeAdapter);
 //        mRcyclerHome.addView(mHeaderView);
     }
