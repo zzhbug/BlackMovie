@@ -2,6 +2,7 @@ package com.zzh.blackmovie.common;
 
 import android.app.Application;
 
+import com.squareup.picasso.Picasso;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zzh.blackmovie.utils.SysState;
@@ -28,7 +29,8 @@ public class AppContext extends Application {
                 //其他配置
                 .build();
         OkHttpUtils.initClient(okHttpClient);
-
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.loggingEnabled(true).build();
     }
 
 
