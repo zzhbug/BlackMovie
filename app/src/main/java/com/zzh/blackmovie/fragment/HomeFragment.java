@@ -40,6 +40,7 @@ public class HomeFragment extends BaseFragment {
     private List<MovieSort> mData;
     private HomeRecyclerAdapter mHomeAdapter;
     private LinearLayout mHeaderView;
+//    private int mPageindex=;
 
     @Nullable
     @Override
@@ -66,30 +67,27 @@ public class HomeFragment extends BaseFragment {
         mHeaderView = ((LinearLayout) inflater.inflate(R.layout.home_head, null));
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 300);
         mHeaderView.setLayoutParams(params);
-        Log.d(TAG, "initView: "+mHeaderView);
-        //----------------添加头布局------------------------------------------
         mHomeAdapter.addHeadView(mHeaderView);
+//        mHeaderView.findViewById(R.id.pagerHomeTop);
+
+        //----------------添加头布局------------------------------------------
         mRcyclerHome.setAdapter(mHomeAdapter);
-//        mRcyclerHome.addView(mHeaderView);
     }
 
     private void initHttp() {
         OkHttpUtils.get()
                 .url("https://apis.vcinema.cn:8445/v2.3/rest/home/getHomeResource/1/0/10?channels=aph1&appVersion=4.1.0&platform=1")
-                //                .url("http://api.duotin.com/podcast/latest?device_key=353375050122414&platform=android&source=fm&device_token=&user_key=&package=com.duotin.fm&longitude=&latitude=&channel=hiapk&version=2.7.20")
                 .build()
                 .execute(new BaseCallback<HomeMovieAll>(new JsonBaseSerializator()) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         Log.d(TAG, "onError: ");
                     }
-
                     @Override
                     public void onResponse(HomeMovieAll response, int id) {
                         List<MovieSort> content = response.getContent();
                         mHomeAdapter.updataRes(content);
                         Log.d(TAG, "onResponse: " + response);
-
                     }
                 });
     }
