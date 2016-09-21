@@ -4,7 +4,79 @@
         "source": "H:\\AndroidWordSpace\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
     {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\tab_self_uncheck.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\tab_self_uncheck.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\icon_feedback.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\icon_feedback.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\icon_logout.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\icon_logout.png"
+    },
+    {
         "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\ic_launcher.png",
         "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\icon_more.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\icon_more.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\icon_history.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\icon_history.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\icon_set.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\icon_set.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\tab_find_check.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\tab_find_check.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\icon_fav_normal.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\icon_fav_normal.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\tab_rank_check.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\tab_rank_check.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\userphoto_default.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\userphoto_default.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\tab_home_uncheck.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\tab_home_uncheck.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\tab_rank_uncheck.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\tab_rank_uncheck.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\play_ctrl_back_bg.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\play_ctrl_back_bg.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\tab_self_check.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\tab_self_check.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\icon_download.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\icon_download.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\icon_search_normal.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\icon_search_normal.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\tab_home_check.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\tab_home_check.png"
+    },
+    {
+        "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\tab_find_uncheck.png",
+        "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-hdpi\\tab_find_uncheck.png"
     }
 ]
