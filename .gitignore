@@ -39,5 +39,11 @@ captures/
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
-/build
+build
 /captures
+#$ git status
+#error: bad index file sha1 signature
+#fatal: index file corrupt
+#$ rm -f .git/index
+#$ git reset
+
