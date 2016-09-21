@@ -5,6 +5,6 @@
     <dimen name="itemHeight">60dp</dimen>
     <dimen name="imageWidth">25dp</dimen>
     <dimen name="screen_margin">8dp</dimen>
-    <dimen name="itemTitleSize">18sp</dimen>
+    <dimen name="itemTitleSize">16sp</dimen>
     <dimen name="itemTitleHeight">40dp</dimen>
 </resources>
