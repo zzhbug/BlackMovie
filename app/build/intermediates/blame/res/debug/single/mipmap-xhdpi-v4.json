@@ -1,9 +1,5 @@
 [
     {
-        "merged": "H:\\AndroidWordSpace\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
-        "source": "H:\\AndroidWordSpace\\BlackMovie\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "E:\\Project\\BlackMovie\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
         "source": "E:\\Project\\BlackMovie\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     }
