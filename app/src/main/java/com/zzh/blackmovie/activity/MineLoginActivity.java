@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MineLoginActivity extends AppCompatActivity {
+    private static final String TAG = "MineLoginActivity";
     private SHARE_MEDIA platform;
     @BindView(R.id.imgTopbarBack)
     ImageView imgTopbarBack;
@@ -106,16 +108,17 @@ public class MineLoginActivity extends AppCompatActivity {
         @Override
         public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
             mShareAPI.getPlatformInfo(MineLoginActivity.this, platform, umAuthListener);
+            Log.d(TAG, "onComplete: " + map.toString());
         }
 
         @Override
         public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-
+            Log.d(TAG, "onError: ");
         }
 
         @Override
         public void onCancel(SHARE_MEDIA share_media, int i) {
-
+            Log.d(TAG, "onCancel: ");
         }
     };
 
