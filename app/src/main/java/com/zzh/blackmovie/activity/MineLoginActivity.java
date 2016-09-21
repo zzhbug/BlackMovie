@@ -1,6 +1,8 @@
 package com.zzh.blackmovie.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +44,9 @@ public class MineLoginActivity extends AppCompatActivity {
     @BindView(R.id.btnTDPLogin)
     Button btnTDPLogin;
     private UMShareAPI mShareAPI;
+
+    private SharedPreferences.Editor mEdit;
+    private SharedPreferences mSharedPreferences;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -60,18 +65,19 @@ public class MineLoginActivity extends AppCompatActivity {
     private void initView() {
         imgTopbarSearch.setVisibility(View.INVISIBLE);
         textTopbarTitle.setText("登录");
+        //数据存储
+        mSharedPreferences = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+        mEdit = mSharedPreferences.edit();
     }
 
     @OnClick({R.id.btnQuickLogin, R.id.btnTDPLogin, R.id.imgTopbarBack})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnQuickLogin:
-                Toast.makeText(MineLoginActivity.this, "极速登录", Toast.LENGTH_SHORT).show();
                 //极速登录
                 quickLogin();
                 break;
             case R.id.btnTDPLogin:
-                Toast.makeText(MineLoginActivity.this, "第三方登录", Toast.LENGTH_SHORT).show();
                 //第三方登录
                 tdpLogin();
                 break;
@@ -109,6 +115,27 @@ public class MineLoginActivity extends AppCompatActivity {
         public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
             mShareAPI.getPlatformInfo(MineLoginActivity.this, platform, umAuthListener);
             Log.d(TAG, "onComplete: " + map.toString());
+
+
+            String screen_name = map.get("screen_name");
+            String openid = map.get("openid");
+            int vip = Integer.parseInt(map.get("vip"));
+
+            //获取登录用户名 id
+            String screen_nameShare = mSharedPreferences.getString(screen_name,"none");
+            String openidShare = mSharedPreferences.getString(openid, "none");
+            if (!mSharedPreferences.contains(screen_name) || !mSharedPreferences.contains(openid)) {
+                mEdit.putString("screen_name","none");
+                mEdit.putString("openid","none");
+                mEdit.commit();
+            }else {
+                if (!screen_nameShare.equals(screen_name) || !openidShare.equals(openid)) {
+                    mEdit.putString(screen_name,"none");
+                    mEdit.putString(openid,"none");
+                    mEdit.commit();
+                }
+            }
+
         }
 
         @Override

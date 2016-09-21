@@ -106,4 +106,10 @@ public class MineFragment extends BaseFragment {
         startActivity(intent);
         isLogin = true;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        
+    }
 }
