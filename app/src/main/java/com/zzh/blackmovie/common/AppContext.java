@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
+import com.zzh.blackmovie.utils.SysState;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ public class AppContext extends Application {
         super.onCreate();
         //        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         // initLogin();
+        SysState.initSystate(this);
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(100000L, TimeUnit.MILLISECONDS)

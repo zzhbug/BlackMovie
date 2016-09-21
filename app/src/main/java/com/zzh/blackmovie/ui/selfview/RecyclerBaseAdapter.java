@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public abstract class RecyclerBaseAdapter<T> extends RecyclerView.Adapter<RecyclerBaseAdapter.ViewHolder> {
     private static final String TAG = "RecyclerBaseAdapter";
-    private static final int HEAD_TYPE = 1111;//头的类型 可能冲突
+    protected static final int HEAD_TYPE = 1111;//头的类型 可能冲突
     protected List<T> mData;
     protected int mItemRes;
     protected RecyclerView mRecyclerView;

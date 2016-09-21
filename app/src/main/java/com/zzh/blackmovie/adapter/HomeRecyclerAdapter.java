@@ -1,70 +1,52 @@
 package com.zzh.blackmovie.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.zzh.blackmovie.R;
 import com.zzh.blackmovie.model.MovieSort;
+import com.zzh.blackmovie.model.ProductmovieList;
+import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/21 0021.
  */
-public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder> {
-    private List<MovieSort> mData;
-    private LayoutInflater inflater;
-    private RecyclerView mRecyclerView;
-    private Context mContext;
+public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> {
 
+    private static final String TAG = "HomeRecyclerAdapter";
+    private final LinearLayoutManager mLayoutManager;
+    private RecyclerView mRecyclerViewItem;
+    private int screenWidth;
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public HomeRecyclerAdapter(Context context, List<MovieSort> data, int itemId) {
+        super(context, data, itemId);
+        mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
     }
 
     @Override
-    public int getItemCount() {
-        return mData == null ? 0 : mData.size();
+    protected ViewHolder onCreateBaseViewHolder(ViewHolder fistViewHolder, ViewGroup parent, int viewType) {
+        return fistViewHolder;
     }
 
+    @Override
+    protected void onBindBaseViewHolder(ViewHolder holder, int dataPosition, int itemPosition) {
+        TextView textMovieTitle = (TextView) holder.getView(R.id.textMovieTitleItem);
+        //        TextView view = (TextView) holder.getView(R.id.textMovieMoreItem);
+        textMovieTitle.setText(mData.get(itemPosition).getCategoryzdName());
 
-    protected class ViewHolder extends RecyclerView.ViewHolder {
+        List<ProductmovieList> productmovieList = mData.get(itemPosition).getProductmovieList();
+        mRecyclerViewItem = ((RecyclerView) holder.getView(R.id.recyclerItem));
+        mRecyclerViewItem.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        RecyclerItemAdapter adapter = new RecyclerItemAdapter(mContext, productmovieList, R.layout.moive_list_item);
+        mRecyclerViewItem.setAdapter(adapter);
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-
-    /**
-     * @param data 上拉加载
-     */
-    public void updataRes(List<MovieSort> data) {
-        if (data != null) {
-            this.mData.addAll(data);
-            this.notifyDataSetChanged();
-        }
-    }
-
-    /**
-     * @param data 下拉刷新
-     */
-    public void downDataRes(List<MovieSort> data) {
-        if (data != null) {
-            this.mData.clear();
-            this.mData.addAll(data);
-            this.notifyDataSetChanged();
-        }
 
     }
-
 
 }
