@@ -2,9 +2,12 @@ package com.zzh.blackmovie.common;
 
 import android.app.Application;
 
+import com.squareup.picasso.Picasso;
+import com.umeng.socialize.PlatformConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zzh.blackmovie.utils.SysState;
+import com.zzh.blackmovie.utils.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
 

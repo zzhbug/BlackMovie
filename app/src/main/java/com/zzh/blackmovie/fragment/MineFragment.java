@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.zzh.blackmovie.R;
 import com.zzh.blackmovie.activity.MineLoginActivity;
+import com.zzh.blackmovie.activity.MineOtherActivity;
 import com.zzh.blackmovie.base.BaseFragment;
 import com.zzh.blackmovie.model.UserInfo;
 import com.zzh.blackmovie.ui.selfview.CircleTransformation;
@@ -31,13 +31,11 @@ import butterknife.OnClick;
  */
 public class MineFragment extends BaseFragment {
     public static final String TAG = "MineFragment";
-    private static final int TAG_LOGIN = 1;
     private static final int TAG_HISTORY = 2;
     private static final int TAG_DOWNLOAD = 3;
     private static final int TAG_FAV = 4;
     private static final int TAG_FEEDBACK = 5;
     private static final int TAG_SET = 6;
-    private static final int TAG_LOGOUT = 7;
     @BindView(R.id.imgUserPhoto)
     ImageView imgUserPhoto;
     @BindView(R.id.textLogin)
@@ -79,8 +77,8 @@ public class MineFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "onActivityCreated: ");
         ButterKnife.bind(this, layout);
-        imgTopbarSearch.setVisibility(View.GONE);
-        imgTopbarBack.setVisibility(View.GONE);
+        imgTopbarSearch.setVisibility(View.INVISIBLE);
+        imgTopbarBack.setVisibility(View.INVISIBLE);
 
     }
 
@@ -88,42 +86,52 @@ public class MineFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgUserPhoto:
-                tag = TAG_LOGIN;
                 login();
 
                 break;
             case R.id.textLogin:
-                tag = TAG_LOGIN;
                 login();
 
                 break;
             case R.id.linearHistory:
                 tag = TAG_HISTORY;
-                Toast.makeText(getActivity(), "观影历史", Toast.LENGTH_SHORT).show();
+                jumpOther();
                 break;
             case R.id.learnDownload:
 
                 tag = TAG_DOWNLOAD;
-                Toast.makeText(getActivity(), "离线缓存", Toast.LENGTH_SHORT).show();
+                jumpOther();
+
                 break;
             case R.id.learnFav:
                 tag = TAG_FAV;
-                Toast.makeText(getActivity(), "我的收藏", Toast.LENGTH_SHORT).show();
+                jumpOther();
+
                 break;
             case R.id.learnFeedback:
                 tag = TAG_FEEDBACK;
-                Toast.makeText(getActivity(), "我要反馈", Toast.LENGTH_SHORT).show();
+                jumpOther();
+
                 break;
             case R.id.learnSet:
                 tag = TAG_SET;
-                Toast.makeText(getActivity(), "我的设置", Toast.LENGTH_SHORT).show();
+                jumpOther();
+
                 break;
             case R.id.learnLogout:
-                tag = TAG_LOGOUT;
                 logout();
 
                 break;
         }
+    }
+
+    /**
+     * 其他item跳转
+     */
+    private void jumpOther() {
+        Intent intent = new Intent(getActivity(), MineOtherActivity.class);
+        intent.putExtra(MineOtherActivity.FRAGMENT_TAG,tag);
+        startActivity(intent);
     }
 
     @Override

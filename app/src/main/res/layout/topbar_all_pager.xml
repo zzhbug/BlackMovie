@@ -19,12 +19,26 @@
         android:gravity="center"
         android:textSize="22sp"
         android:textColor="@color/colorWhite"/>
-    <ImageView
-        android:id="@+id/imgTopbarSearch"
+    <FrameLayout
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:padding="10dp"
-        android:src="@mipmap/icon_search_normal"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp">
+        <ImageView
+            android:id="@+id/imgTopbarSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@mipmap/icon_search_normal"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/textComment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="编辑"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </FrameLayout>
+
 </LinearLayout>

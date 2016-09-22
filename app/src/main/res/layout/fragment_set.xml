@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg">
+    <include layout="@layout/topbar_all_pager"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorWhite"
+        app:cardElevation="5dp">
+    <LinearLayout
+        android:id="@+id/learnVersion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:clickable="true">
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="版本信息"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="4.1.0"
+            android:layout_alignParentRight="true"/>
+    </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <include layout="@layout/custom_view_long"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorWhite"
+        app:cardElevation="5dp">
+
+    <TextView
+        android:id="@+id/textOurs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="关于我们"
+        android:clickable="true"
+        android:layout_marginLeft="10dp"/>
+    </android.support.v7.widget.CardView>
+
+    <include layout="@layout/custom_view_long"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorWhite"
+        app:cardElevation="5dp">
+
+        <TextView
+            android:id="@+id/textModel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="日/夜间模式"
+            android:clickable="true"
+            android:layout_marginLeft="10dp"/>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
