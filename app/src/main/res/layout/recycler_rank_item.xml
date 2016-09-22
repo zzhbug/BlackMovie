@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/img_recycler_rank_item"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"/>
+    <ImageView
+        android:id="@+id/tag_recycler_rank_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/rank_other_icon"/>
+    <TextView
+        android:id="@+id/text_recycler_rank_item"
+        android:layout_below="@+id/img_recycler_rank_item"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:textSize="12sp"
+        android:text="电影名教师节"
+        />
+    <TextView
+        android:id="@+id/num_recycler_rank_item"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:text="10"
+        android:textSize="10sp"/>
+</RelativeLayout>

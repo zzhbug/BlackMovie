@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -17,30 +18,30 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/21 0021.
  */
-public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> {
+public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> implements View.OnClickListener {
 
     private static final String TAG = "HomeRecyclerAdapter";
-    private final LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerViewItem;
-    private int screenWidth;
+
 
     public HomeRecyclerAdapter(Context context, List<MovieSort> data, int itemId) {
         super(context, data, itemId);
-        mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
     }
 
     @Override
     protected ViewHolder onCreateBaseViewHolder(ViewHolder fistViewHolder, ViewGroup parent, int viewType) {
+        View view = fistViewHolder.getCoverView().findViewById(R.id.textMovieMoreItem);
+        view.setOnClickListener(this);
         return fistViewHolder;
     }
 
     @Override
     protected void onBindBaseViewHolder(ViewHolder holder, int dataPosition, int itemPosition) {
-        if (this.getItemCount()<=(itemPosition+1)) {
+        if (this.getItemCount() <= (itemPosition + 1)) {
             return;
         }
-        Log.d(TAG, getItemCount()+"onBindBaseViewHolder: "+itemPosition);
+        Log.d(TAG, getItemCount() + "onBindBaseViewHolder: " + itemPosition);
         TextView textMovieTitle = (TextView) holder.getView(R.id.textMovieTitleItem);
         textMovieTitle.setText(mData.get(itemPosition).getCategoryzdName());
         List<ProductmovieList> productmovieList = mData.get(itemPosition).getProductmovieList();
@@ -50,4 +51,11 @@ public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> {
         mRecyclerViewItem.setAdapter(adapter);
     }
 
+    @Override
+    public void onClick(View v) {
+        ViewGroup parent = (ViewGroup) (v.getParent().getParent());
+        int position = mRecyclerViewItem.getChildAdapterPosition(parent);
+        Log.d(TAG, "onClick: " + position);
+        //跳转更多页面
+    }
 }

@@ -4,20 +4,9 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <lib.homhomlib.design.SlidingLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/slidingLayout"
+    <com.lhh.ptrrv.library.PullToRefreshRecyclerView
+        android:id="@+id/pullRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:background_view="@layout/view_bg"
-        app:sliding_mode="both">
+        android:layout_height="match_parent"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:background="@color/colorWhite"
-            android:id="@+id/recyclerHome"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </lib.homhomlib.design.SlidingLayout>
 </LinearLayout>

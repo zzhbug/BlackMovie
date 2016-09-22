@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#0ff"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+ <FrameLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+     <ImageView
+         android:scaleType="fitXY"
+         android:id="@+id/imgPagerShow"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"/>
+     <TextView
+         android:textColor="@color/colorWhite"
+         android:id="@+id/textPagerTitle"
+         android:maxLines="2"
+         android:textSize="@dimen/itemTitleSize"
+         android:text="@string/app_name"
+         android:layout_gravity="bottom"
+         android:layout_marginLeft="@dimen/screen_margin"
+         android:layout_marginBottom="@dimen/topbarBottomMargin"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
+
+ </FrameLayout>
+</LinearLayout>
