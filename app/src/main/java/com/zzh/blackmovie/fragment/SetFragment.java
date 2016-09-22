@@ -1,7 +1,12 @@
 package com.zzh.blackmovie.fragment;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +41,8 @@ public class SetFragment extends BaseFragment {
     TextView textOurs;
     @BindView(R.id.textModel)
     TextView textModel;
+    @BindView(R.id.textVersion)
+    TextView textVersion;
 
     @Nullable
     @Override
@@ -56,7 +63,32 @@ public class SetFragment extends BaseFragment {
     private void initView() {
         textTopbarTitle.setText("我的设置");
         imgTopbarSearch.setVisibility(View.INVISIBLE);
+
+        String versionName = getVersion(getActivity());
+        textVersion.setText(versionName);
     }
+
+    /**
+     * 获取版本号
+     * @param context
+     * @return
+     */
+    private String getVersion(Context context) {
+        String versionName = "";
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo packageInfo = manager.getPackageInfo("com.zzh.blackmovie", 0);
+            versionName = packageInfo.versionName;
+            Log.d(TAG, "getVersion: " + versionName);
+            if (TextUtils.isEmpty(String.valueOf(versionName))) {
+                return "";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
+    }
+
 
     @OnClick({R.id.imgTopbarBack, R.id.learnVersion, R.id.textOurs, R.id.textModel})
     public void onClick(View view) {
