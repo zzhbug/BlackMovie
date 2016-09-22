@@ -6,6 +6,7 @@ import com.umeng.socialize.PlatformConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zzh.blackmovie.utils.SysState;
+import com.zzh.blackmovie.utils.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +22,7 @@ public class AppContext extends Application {
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         // initLogin();
         SysState.initSystate(this);
+        ToastUtil.ToastInit(this);
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(100000L, TimeUnit.MILLISECONDS)
