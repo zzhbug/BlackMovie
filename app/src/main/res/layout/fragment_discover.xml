@@ -4,10 +4,13 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <TextView
+    <include layout="@layout/topbar_all_pager"/>
+
+
+    <com.lhh.ptrrv.library.PullToRefreshRecyclerView
+        android:id="@+id/pullRecyclerDiscover"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="发现"
-        android:textSize="30sp"/>
+        android:layout_height="match_parent">
+    </com.lhh.ptrrv.library.PullToRefreshRecyclerView>
+
 </LinearLayout>
