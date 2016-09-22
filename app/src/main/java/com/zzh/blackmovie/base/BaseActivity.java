@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
  */
 public class BaseActivity extends AppCompatActivity {
 
+    public static final String TITLE = "TITLE";
+    public static final String CATEGORY_ID = "CATEGORY_ID";
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);

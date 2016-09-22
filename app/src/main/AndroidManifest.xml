@@ -106,6 +106,8 @@
         <!--定位服务的注册-->
         <service android:name="com.amap.api.location.APSService"/>
         <activity android:name=".activity.PlayActivity"/>
+        <activity android:name=".activity.MoreActivity">
+        </activity>
     </application>
 
 </manifest>

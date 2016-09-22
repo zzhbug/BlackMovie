@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zzh.blackmovie.R;
 import com.zzh.blackmovie.activity.PlayActivity;
+import com.zzh.blackmovie.activity.MoreActivity;
 import com.zzh.blackmovie.model.MovieSort;
 import com.zzh.blackmovie.model.ProductmovieList;
 import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;
@@ -24,6 +25,7 @@ import java.util.List;
 public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> implements View.OnClickListener {
 
     private static final String TAG = "HomeRecyclerAdapter";
+
     private RecyclerView mRecyclerViewItem;
 
 
@@ -41,10 +43,6 @@ public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> implemen
 
     @Override
     protected void onBindBaseViewHolder(ViewHolder holder, int dataPosition, int itemPosition) {
-        if (this.getItemCount() <= (itemPosition + 1)) {
-            return;
-        }
-        Log.d(TAG, getItemCount() + "onBindBaseViewHolder: " + itemPosition);
         TextView textMovieTitle = (TextView) holder.getView(R.id.textMovieTitleItem);
         textMovieTitle.setText(mData.get(itemPosition).getCategoryzdName());
         List<ProductmovieList> productmovieList = mData.get(itemPosition).getProductmovieList();
@@ -52,6 +50,7 @@ public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> implemen
         mRecyclerViewItem.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         RecyclerItemAdapter adapter = new RecyclerItemAdapter(mContext, productmovieList, R.layout.moive_list_item);
         mRecyclerViewItem.setAdapter(adapter);
+
     }
 
     @Override
@@ -59,9 +58,18 @@ public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> implemen
         ViewGroup parent = (ViewGroup) (v.getParent().getParent());
         int position = mRecyclerViewItem.getChildAdapterPosition(parent);
         Log.d(TAG, "onClick: " + position);
+        startActivity(position);
         //跳转更多页面
-        ToastUtil.makeText(mData.get(position).getCategoryId()+"");
-
-
     }
+
+    private void startActivity(int position) {
+        String categoryName = mData.get(position).getCategoryName();
+        int categoryId = mData.get(position).getCategoryId();
+        Intent intent = new Intent(mContext, MoreActivity.class);
+        intent.putExtra(MoreActivity.TITLE, categoryName);
+        intent.putExtra(MoreActivity.CATEGORY_ID, String.valueOf(categoryId));
+        mContext.startActivity(intent);
+    }
+
+
 }
