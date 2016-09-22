@@ -8,8 +8,7 @@
         android:id="@+id/textDiscoverItem2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/screen_margin"
-        android:layout_marginRight="@dimen/screen_margin"
+        android:layout_margin='@dimen/screen_margin'
         android:textColor="@color/colour"
         android:textSize="@dimen/itemTitleSize"/>
 

@@ -3,6 +3,7 @@ package com.zzh.blackmovie.fragment;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ import okhttp3.Call;
 /**
  * Created by Administrator on 2016/9/19 0019.
  */
-public class DiscoverFragment extends BaseFragment {
+public class DiscoverFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     public static final String TAG = "DiscoverFragment";
     @BindView(R.id.imgTopbarBack)
     ImageView mImgTopbarBack;
@@ -68,6 +69,12 @@ public class DiscoverFragment extends BaseFragment {
         mTextTopbarTitle.setText("发现");
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         mPullRecyclerDiscover.setLayoutManager(layoutManager);
+        //---------------------设置刷新----------------------
+        mPullRecyclerDiscover.setSwipeEnable(true);
+
+        mPullRecyclerDiscover.setRefreshing(true);
+
+        mPullRecyclerDiscover.setOnRefreshListener(this);
         //-------------------------空白页面和动画---------------------------------
         View inflate = View.inflate(getActivity(), R.layout.empty_view, null);
         mPullRecyclerDiscover.setEmptyView(inflate);
@@ -114,7 +121,7 @@ public class DiscoverFragment extends BaseFragment {
                             case UP_DATA:
                                 break;
                         }
-
+                        mPullRecyclerDiscover.setOnRefreshComplete();
                     }
                 });
         ;
@@ -124,6 +131,16 @@ public class DiscoverFragment extends BaseFragment {
     @OnClick(R.id.imgTopbarSearch)
     public void onClick() {
         ToastUtil.makeText("搜索");
+        showPopupWindow();
+    }
+
+    private void showPopupWindow() {
+
+    }
+
+    @Override
+    public void onRefresh() {
+        initHttp(DOWN_DATA);
     }
 
 }
