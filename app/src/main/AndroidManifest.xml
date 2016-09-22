@@ -27,45 +27,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
         <!-- 友盟 -->
 
-        <activity android:name="com.umeng.socialize.editorpage.ShareActivity"
-            android:theme="@style/Theme.UMDefault"
-            android:excludeFromRecents="true"/>
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="57e10a71e0f55a34030006c3">
         </meta-data>
 
-
-        <!--QQ QZone-->
+        <!-- QQ QZone -->
 
         <activity
             android:name="com.tencent.tauth.AuthActivity"
-            android:noHistory="true"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
 
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-            <category android:name="android.intent.category.BROWSABLE"/>
-            <data android:scheme="tencent100424468"/>
-        </intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
 
-    </activity>
+                <data android:scheme="tencent100424468"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
-        <activity android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:screenOrientation="portrait"/>
-
-
-        <!--******************************************************************-->
+        <!-- ****************************************************************** -->
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -74,7 +71,8 @@
         </activity>
         <activity android:name=".activity.SplashActivity"/>
         <activity android:name=".activity.MineLoginActivity"/>
-
+        <activity android:name=".activity.MoreActivity">
+        </activity>
     </application>
 
 </manifest>
