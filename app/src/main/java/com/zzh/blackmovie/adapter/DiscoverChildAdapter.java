@@ -25,5 +25,6 @@ public class DiscoverChildAdapter extends RecyclerBaseAdapter<ProductmovieList> 
     @Override
     protected void onBindBaseViewHolder(ViewHolder holder, int dataPosition, int itemPosition) {
 //                mData.get(dataPosition).getName()
+
     }
 }
