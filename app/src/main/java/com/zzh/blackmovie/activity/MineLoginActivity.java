@@ -146,7 +146,7 @@ public class MineLoginActivity extends AppCompatActivity implements AMapLocation
             getPosition();
 
             //当用户名不为空时结束当前页面
-            if (screen_name != null) {
+            if (screen_name != null  && mCity != null && image_url != null) {
                 finish();
             }else {    //获取用户信息
                 mShareAPI.getPlatformInfo(MineLoginActivity.this, platform, umAuthListener);

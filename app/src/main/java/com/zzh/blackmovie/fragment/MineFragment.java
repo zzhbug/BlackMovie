@@ -22,8 +22,6 @@ import com.zzh.blackmovie.base.BaseFragment;
 import com.zzh.blackmovie.model.UserInfo;
 import com.zzh.blackmovie.ui.selfview.CircleTransformation;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -122,8 +120,8 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.learnLogout:
                 tag = TAG_LOGOUT;
-                Toast.makeText(getActivity(), "退出", Toast.LENGTH_SHORT).show();
                 logout();
+
                 break;
         }
     }
@@ -171,7 +169,6 @@ public class MineFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         Log.e(TAG, "onStart: ");
-        EventBus.getDefault().register(this);
         //共享参数取值
         SharedPreferences userInfo = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         Log.d(TAG, "onCreateView: " + userInfo.getString(UserInfo.OPENID,null));
@@ -188,7 +185,6 @@ public class MineFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop: ");
-        EventBus.getDefault().unregister(this);
     }
 
     /**
