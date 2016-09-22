@@ -2,7 +2,6 @@ package com.zzh.blackmovie.common;
 
 import android.app.Application;
 
-import com.squareup.picasso.Picasso;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zzh.blackmovie.utils.SysState;
@@ -18,9 +17,10 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         // initLogin();
         SysState.initSystate(this);
+        ToastUtil.ToastInit(this);
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(100000L, TimeUnit.MILLISECONDS)

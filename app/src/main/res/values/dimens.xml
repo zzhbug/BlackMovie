@@ -7,4 +7,5 @@
     <dimen name="screen_margin">8dp</dimen>
     <dimen name="itemTitleSize">16sp</dimen>
     <dimen name="itemTitleHeight">40dp</dimen>
+    <dimen name="topbarBottomMargin">20dp</dimen>
 </resources>

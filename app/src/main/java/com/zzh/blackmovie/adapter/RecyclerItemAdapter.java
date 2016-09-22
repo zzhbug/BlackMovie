@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/21 0021.
  */
-public class RecyclerItemAdapter extends RecyclerBaseAdapter<ProductmovieList> {
+public class RecyclerItemAdapter extends RecyclerBaseAdapter<ProductmovieList> implements View.OnClickListener {
 
     private static final String TAG = "RecyclerItemAdapter";
     private final int screenWidth;
@@ -36,7 +36,7 @@ public class RecyclerItemAdapter extends RecyclerBaseAdapter<ProductmovieList> {
         //-------------------设置Item的高度和宽度------------------
         View cardView = coverView.findViewById(R.id.cardHomeView);
         int width = screenWidth / 3;
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(width, width / 3 * 4 + 60);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(width, width / 3 * 4 + 80);
         cardView.setLayoutParams(params);
 
         //设置图片的高度和宽度
@@ -46,6 +46,7 @@ public class RecyclerItemAdapter extends RecyclerBaseAdapter<ProductmovieList> {
         LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(imgWidth, imgWidth / 3 * 4);
         View view2 = coverView.findViewById(R.id.imgMoviePic);
         view2.setLayoutParams(params1);
+        coverView.setOnClickListener(this);
 
         return fistViewHolder;
     }
@@ -63,4 +64,11 @@ public class RecyclerItemAdapter extends RecyclerBaseAdapter<ProductmovieList> {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        int position = mRecyclerView.getChildAdapterPosition(v);
+        Log.d(TAG, "onClick: "+position);
+        //在这里跳转二级页面
+
+    }
 }

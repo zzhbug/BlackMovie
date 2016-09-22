@@ -12,6 +12,8 @@ import android.view.ViewGroup;
  */
 public class BaseFragment extends Fragment {
     protected View layout;
+    protected final int UP_DATA = 1;
+    protected final int DOWN_DATA = 2;
 
     @Nullable
     @Override
