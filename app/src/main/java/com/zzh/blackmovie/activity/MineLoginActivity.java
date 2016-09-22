@@ -13,10 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.zzh.blackmovie.R;
+import com.zzh.blackmovie.model.UserInfo;
 
 import java.util.Map;
 
@@ -24,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MineLoginActivity extends AppCompatActivity {
+public class MineLoginActivity extends AppCompatActivity implements AMapLocationListener {
     private static final String TAG = "MineLoginActivity";
     private SHARE_MEDIA platform;
     @BindView(R.id.imgTopbarBack)
@@ -47,6 +52,13 @@ public class MineLoginActivity extends AppCompatActivity {
 
     private SharedPreferences.Editor mEdit;
     private SharedPreferences mSharedPreferences;
+
+    //声明mLocationOption对象
+    public AMapLocationClientOption mLocationOption = null;
+    private AMapLocationClient mlocationClient;
+    private String mCity;
+
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -113,29 +125,32 @@ public class MineLoginActivity extends AppCompatActivity {
 
         @Override
         public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-            mShareAPI.getPlatformInfo(MineLoginActivity.this, platform, umAuthListener);
             Log.d(TAG, "onComplete: " + map.toString());
 
-
-            String screen_name = map.get("screen_name");
-            String openid = map.get("openid");
-            int vip = Integer.parseInt(map.get("vip"));
+            String screen_name = map.get(UserInfo.NAME);
+            String openid = map.get(UserInfo.OPENID);
+            String vip = map.get(UserInfo.VIP);
+            String image_url = map.get(UserInfo.IMAGE_URL);
+            Log.d(TAG, "onComplete: " + screen_name + "     " + openid + "      " + vip + "     " + image_url);
 
             //获取登录用户名 id
-            String screen_nameShare = mSharedPreferences.getString(screen_name,"none");
-            String openidShare = mSharedPreferences.getString(openid, "none");
-            if (!mSharedPreferences.contains(screen_name) || !mSharedPreferences.contains(openid)) {
-                mEdit.putString("screen_name","none");
-                mEdit.putString("openid","none");
+                mEdit.putString(UserInfo.NAME,screen_name);
+                mEdit.putString(UserInfo.OPENID,openid);
+                mEdit.putString(UserInfo.VIP,vip);
+                mEdit.putString(UserInfo.IMAGE_URL,image_url);
+                mEdit.putString(UserInfo.CITY,mCity);
                 mEdit.commit();
-            }else {
-                if (!screen_nameShare.equals(screen_name) || !openidShare.equals(openid)) {
-                    mEdit.putString(screen_name,"none");
-                    mEdit.putString(openid,"none");
-                    mEdit.commit();
-                }
-            }
+            Log.d(TAG, "onComplete: OK" );
 
+            //定位
+            getPosition();
+
+            //当用户名不为空时结束当前页面
+            if (screen_name != null) {
+                finish();
+            }else {    //获取用户信息
+                mShareAPI.getPlatformInfo(MineLoginActivity.this, platform, umAuthListener);
+            }
         }
 
         @Override
@@ -155,4 +170,41 @@ public class MineLoginActivity extends AppCompatActivity {
         mShareAPI.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void getPosition() {
+
+        //实例化定位的服务
+        mlocationClient = new AMapLocationClient(getApplicationContext());
+        //设置一个定位的监听
+        mlocationClient.setLocationListener(this);
+        //设置一个定位的配置
+        AMapLocationClientOption aMapLocationClientOption = new AMapLocationClientOption();
+        //设置LocationClientOption
+        mlocationClient.setLocationOption(aMapLocationClientOption);
+        //启动定位
+        mlocationClient.startLocation();
+
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation amapLocation) {
+        if (amapLocation != null) {
+            if (amapLocation.getErrorCode() == AMapLocation.LOCATION_SUCCESS) {
+//                //定位成功回调信息，设置相关消息
+                mCity = amapLocation.getCity();  //获得城市信息
+                Log.d(TAG, "onLocationChanged: " + mCity );
+
+            } else {
+                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError","location Error, ErrCode:"
+                        + amapLocation.getErrorCode() + ", errInfo:"
+                        + amapLocation.getErrorInfo());
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }
