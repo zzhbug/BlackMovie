@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/topbar_all_pager"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="254dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:background="@color/colorWhite">
+
+        <CheckBox
+            android:id="@+id/checkboxGood"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="应用棒棒的"
+            android:gravity="center_vertical"
+            android:paddingLeft="0dp"
+            android:background="@color/colorWhite"/>
+        <include layout="@layout/custom_view_long"/>
+
+        <CheckBox
+            android:id="@+id/checkboxBroken"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:button="@null"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="播放卡顿"
+            android:gravity="center_vertical"/>
+        <include layout="@layout/custom_view_long"/>
+
+        <CheckBox
+            android:id="@+id/checkboxSlow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@color/colorWhite"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="应用海报加载不出来/特别慢"
+            android:gravity="center_vertical"/>
+        <include layout="@layout/custom_view_long"/>
+
+        <CheckBox
+            android:id="@+id/checkboxNoCode"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@color/colorWhite"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="登录/注册时无法收到验证码"
+            android:gravity="center_vertical"/>
+        <include layout="@layout/custom_view_long"/>
+
+        <CheckBox
+            android:id="@+id/checkboxunBeautiful"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@color/colorWhite"
+            android:drawableLeft="@drawable/checkbox_bg"
+            android:drawablePadding="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="页面设计不太美观"
+            android:gravity="center_vertical"/>
+        <include layout="@layout/custom_view_long"/>
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/colorWhite">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_input"
+            android:layout_margin="10dp"
+            android:padding="5dp"/>
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="请填写您遇到的其他问题或建议，留下微信号可以获得红包雨哦~(150字内)"
+            android:background="@null"
+            android:textSize="14sp"
+            android:layout_marginLeft="40dp"
+            android:gravity="top"
+            android:layout_marginTop="10dp"/>
+        </RelativeLayout>
+
+</LinearLayout>

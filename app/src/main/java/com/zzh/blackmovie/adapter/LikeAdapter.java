@@ -34,7 +34,10 @@ public class LikeAdapter extends RecyclerBaseAdapter<MovieLikeAll.LikeMovie> imp
     protected void onBindBaseViewHolder(ViewHolder holder, int dataPosition, int itemPosition) {
         ImageView imageView = (ImageView) holder.getView(R.id.img_recycler_like_item);
         TextView textView = (TextView) holder.getView(R.id.text_recycler_like_item);
-        Picasso.with(mContext).load(mData.get(dataPosition).getMovieImageUrl()).into(imageView);
+        Picasso.with(mContext).load(mData.get(dataPosition).getMovieImageUrl())
+                .noFade()
+                .placeholder(R.mipmap.picdefault)
+                .into(imageView);
         textView.setText(mData.get(dataPosition).getName());
     }
 

@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zzh.blackmovie.R;
+import com.zzh.blackmovie.activity.PlayActivity;
 import com.zzh.blackmovie.activity.MoreActivity;
 import com.zzh.blackmovie.model.MovieSort;
 import com.zzh.blackmovie.model.ProductmovieList;
 import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;
+import com.zzh.blackmovie.utils.ToastUtil;
 
 import java.util.List;
 
