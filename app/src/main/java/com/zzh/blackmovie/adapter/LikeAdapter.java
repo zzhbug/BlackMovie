@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.zzh.blackmovie.R;
 import com.zzh.blackmovie.model.MovieLikeAll;
 import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;
@@ -33,10 +34,15 @@ public class LikeAdapter extends RecyclerBaseAdapter<MovieLikeAll.LikeMovie> imp
     protected void onBindBaseViewHolder(ViewHolder holder, int dataPosition, int itemPosition) {
         ImageView imageView = (ImageView) holder.getView(R.id.img_recycler_like_item);
         TextView textView = (TextView) holder.getView(R.id.text_recycler_like_item);
+        Picasso.with(mContext).load(mData.get(dataPosition).getMovieImageUrl()).into(imageView);
+        textView.setText(mData.get(dataPosition).getName());
     }
 
     @Override
     public void onClick(View v) {
-
+        int childAdapterPosition = mRecyclerView.getChildAdapterPosition(v);
+        if (mListener!=null) {
+            mListener.OnItemClick(v,childAdapterPosition);
+        }
     }
 }
