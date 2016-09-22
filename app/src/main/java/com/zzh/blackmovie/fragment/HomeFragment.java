@@ -1,6 +1,7 @@
 package com.zzh.blackmovie.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zzh.blackmovie.R;
+import com.zzh.blackmovie.activity.PlayActivity;
 import com.zzh.blackmovie.adapter.HomeRecyclerAdapter;
 import com.zzh.blackmovie.base.BaseFragment;
 import com.zzh.blackmovie.http.BaseCallback;
@@ -80,7 +82,6 @@ public class HomeFragment extends BaseFragment implements OnItemClickListener {
     private void initView() {
 
         DemoLoadMoreView loadMoreView = new DemoLoadMoreView(getActivity(), mPullRecyclerView.getRecyclerView());
-
         loadMoreView.setLoadmoreString("Loading");
         loadMoreView.setLoadMorePadding(80);
 
@@ -135,6 +136,7 @@ public class HomeFragment extends BaseFragment implements OnItemClickListener {
         //----------------添加空白页------------------------------------------
         View inflate = View.inflate(getActivity(), R.layout.empty_view, null);
         mPullRecyclerView.setEmptyView(inflate);
+
         ImageView imgLoading = (ImageView) inflate.findViewById(R.id.imgLoading);
         AnimationDrawable animationDrawable = (AnimationDrawable) imgLoading.getDrawable();
         animationDrawable.start();
@@ -247,5 +249,10 @@ public class HomeFragment extends BaseFragment implements OnItemClickListener {
     @Override
     public void onItemClick(int position) {
         ToastUtil.makeText(String.valueOf(position));
+        int id = mProductmovieList.get(position).getId();
+        Intent intent = new Intent(getActivity(), PlayActivity.class);
+        intent.putExtra("movieid",id);
+        getActivity().startActivity(intent);
+
     }
 }

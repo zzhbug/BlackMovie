@@ -1,6 +1,7 @@
 package com.zzh.blackmovie.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zzh.blackmovie.R;
+import com.zzh.blackmovie.activity.PlayActivity;
 import com.zzh.blackmovie.model.MovieSort;
 import com.zzh.blackmovie.model.ProductmovieList;
 import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;
+import com.zzh.blackmovie.utils.ToastUtil;
 
 import java.util.List;
 
@@ -57,5 +60,8 @@ public class HomeRecyclerAdapter extends RecyclerBaseAdapter<MovieSort> implemen
         int position = mRecyclerViewItem.getChildAdapterPosition(parent);
         Log.d(TAG, "onClick: " + position);
         //跳转更多页面
+        ToastUtil.makeText(mData.get(position).getCategoryId()+"");
+
+
     }
 }

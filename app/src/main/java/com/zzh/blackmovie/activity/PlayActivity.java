@@ -1,5 +1,6 @@
 package com.zzh.blackmovie.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zzh.blackmovie.R;
 import com.zzh.blackmovie.adapter.LikeAdapter;
 import com.zzh.blackmovie.http.BaseCallback;
+import com.zzh.blackmovie.http.Contants;
 import com.zzh.blackmovie.http.JsonBaseSerializator;
 import com.zzh.blackmovie.model.MovieLikeAll;
 import com.zzh.blackmovie.model.MoviePlayAll;
@@ -43,11 +45,18 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
     private TextView moviedirectorPlay;
     private TextView moviecontentPlay;
 
+    private String play_url;
+    private String like_url;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         ButterKnife.bind(this);
+        int movieid = getIntent().getIntExtra("movieid",120);
+        play_url= Contants.PLAY_HEAD_URL+movieid+Contants.PLAY_FOOT_URL;
+        like_url = Contants.LIKE_HEAD_URL + movieid + Contants.LIKE_FOOT_URL;
         initView();
         setView();
 
@@ -85,7 +94,7 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
     private void getMessage() {
         OkHttpUtils.get()
-                .url("https://apis.vcinema.cn:8445/v2.3/rest/movie/queryMovieById/228893/956/1?channels=aph1&appVersion=4.1.0&platform=1")
+                .url(play_url)
                 .build()
                 .execute(new BaseCallback<MoviePlayAll>(new JsonBaseSerializator()) {
                     @Override
@@ -95,9 +104,10 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
                     @Override
                     public void onResponse(MoviePlayAll response, int id) {
                         mContent=response.getContent();
-                        movienamePlay.setText(mContent.getName()+"  ");
-                        movieareaPlay.setText(mContent.getArea()+"  ");
-                        movieyearPlay.setText("暗黑指数"+mContent.getTerrorismIndex());
+                        movienamePlay.setText(mContent.getName());
+                        movieareaPlay.setText(mContent.getArea());
+                        movieyearPlay.setText(mContent.getYear());
+                        movierankPlay.setText("暗黑指数"+mContent.getTerrorismIndex());
                         movieactorPlay.setText("主演："+mContent.getActor());
                         moviedirectorPlay.setText("导演："+mContent.getDirector());
                         moviecontentPlay.setText(mContent.getContent());
@@ -110,7 +120,7 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
     private void setView() {
         OkHttpUtils.get()
-                .url("https://apis.vcinema.cn:8445/v2.3/rest/movie/queryMovieByRecommend/228893/974?channels=aph1&appVersion=4.1.0&platform=1").build()
+                .url(like_url).build()
                 .execute(new BaseCallback<MovieLikeAll>(new JsonBaseSerializator()) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
@@ -127,6 +137,10 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
     @Override
     public void OnItemClick(View view, int position) {
-        ToastUtil.makeText(mData.get(position).getName());
+        ToastUtil.makeText(mData.get(position-1).getName());
+        int id = mData.get(position - 1).getId();
+        Intent intent = new Intent(this, PlayActivity.class);
+        intent.putExtra("movieid",id);
+        startActivity(intent);
     }
 }
