@@ -3,7 +3,7 @@
 build
 local.properties
 *.iml
-
+.build
 
 /captures
 #$ git status
