@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -73,11 +72,10 @@ public class MineLoginActivity extends AppCompatActivity implements AMapLocation
         ButterKnife.bind(this);
         initView();
 
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        recreate();
     }
 
     private void initView() {
+        Log.d(TAG, "initView: " + TAG);
         imgTopbarSearch.setVisibility(View.INVISIBLE);
         textTopbarTitle.setText("登录");
         //数据存储

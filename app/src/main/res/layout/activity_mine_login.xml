@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zzh.blackmovie.activity.MineLoginActivity">
+    tools:context="com.zzh.blackmovie.activity.MineLoginActivity"
+    android:background="#fff">
 
     <include layout="@layout/topbar_all_pager"/>
 
@@ -30,7 +31,8 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:inputType="phone"/>
+                android:inputType="phone"
+                android:background="@null"/>
             <TextView
                 android:id="@+id/textLoginSend"
                 android:layout_width="wrap_content"
@@ -56,7 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                />
+                android:background="@null"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -98,9 +100,6 @@
             android:text="登录即表示同意我们的服务条款和隐私政策"
             android:gravity="center"
             android:textSize="12sp"/>
-        <WebView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
