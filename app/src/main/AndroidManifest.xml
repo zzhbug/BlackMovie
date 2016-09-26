@@ -95,16 +95,19 @@
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
             >
+
+        </activity>
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.SplashActivity"/>
+            </activity>
         <activity android:name=".activity.MineLoginActivity"/>
         <activity android:name=".activity.MineOtherActivity" />
         <activity android:name=".activity.PlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             />
         <activity android:name=".activity.MoreActivity"/>
 
