@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zzh.blackmovie.R;
 import com.zzh.blackmovie.adapter.LikeAdapter;
+import com.zzh.blackmovie.db.dbutils.DbConfig;
+import com.zzh.blackmovie.db.entity.HistoryMovieEntity;
 import com.zzh.blackmovie.http.BaseCallback;
 import com.zzh.blackmovie.http.Contants;
 import com.zzh.blackmovie.http.JsonBaseSerializator;
@@ -34,6 +38,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.MediaController;
@@ -42,7 +47,7 @@ import okhttp3.Call;
 
 public class PlayActivity extends AppCompatActivity implements
         LikeAdapter.OnItemClickListener,
-        View.OnClickListener, OrientationDetector.OrientationChangeListener {
+        View.OnClickListener, OrientationDetector.OrientationChangeListener, CompoundButton.OnCheckedChangeListener {
     private static final String TAG = "MainActivity";
     public static final String MOVIE_ID = "movieid";
 
@@ -77,18 +82,35 @@ public class PlayActivity extends AppCompatActivity implements
     private boolean isFullscreen = false;
     private int cachedHeight;
 
+    private int movieid;
+    private CheckBox mCheckBoxFollow;
+    private Realm mRealm;
+    private MoviePlayAll mMovieInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         Vitamio.isInitialized(getApplicationContext());
         ButterKnife.bind(this);
-        int movieid = getIntent().getIntExtra(MOVIE_ID, 120);
+        movieid = getIntent().getIntExtra(MOVIE_ID, 120);
         play_url = Contants.PLAY_HEAD_URL + movieid + Contants.PLAY_FOOT_URL;
         like_url = Contants.LIKE_HEAD_URL + movieid + Contants.LIKE_FOOT_URL;
-
         initView();
         getLikeData();
+        showDBData();
+    }
+
+    private void showDBData() {
+        mRealm = DbConfig.getRealm();
+        mRealm.beginTransaction();
+        HistoryMovieEntity movieEntity = mRealm.where(HistoryMovieEntity.class)
+                .equalTo("id", movieid)
+                .findFirst();
+        mRealm.commitTransaction();
+        if (movieEntity != null && mCheckBoxFollow != null) {
+            mCheckBoxFollow.setChecked(true);
+        }
 
     }
 
@@ -114,6 +136,8 @@ public class PlayActivity extends AppCompatActivity implements
         moviecontentPlay = (TextView) inflate.findViewById(R.id.moviecontent_play);
         movieExtend = ((LinearLayout) inflate.findViewById(R.id.paly_content));
         moviextendPlay = ((ImageView) inflate.findViewById(R.id.moviextend_play));
+        mCheckBoxFollow = ((CheckBox) inflate.findViewById(R.id.checkboxFollow));
+        mCheckBoxFollow.setOnCheckedChangeListener(this);
         moviextendPlay.setOnClickListener(this);
         getMessage();
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -146,6 +170,7 @@ public class PlayActivity extends AppCompatActivity implements
 
                     @Override
                     public void onResponse(MoviePlayAll response, int id) {
+                        mMovieInfo = response;
                         mDadaMsg = response.getContent();
                         movienamePlay.setText(mDadaMsg.getName());
                         movieareaPlay.setText(mDadaMsg.getArea());
@@ -169,7 +194,6 @@ public class PlayActivity extends AppCompatActivity implements
                 .execute(new BaseCallback<MovieLikeAll>(new JsonBaseSerializator()) {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
                     }
 
                     @Override
@@ -252,7 +276,7 @@ public class PlayActivity extends AppCompatActivity implements
             layoutParams.height = widthAndHeight[1];
             mVideoLayout.setLayoutParams(layoutParams);
             Log.d(TAG, "onScaleChange: " + layoutParams.width + "  " + layoutParams.height);
-            holder.setFixedSize(widthAndHeight[0],widthAndHeight[1]);
+            holder.setFixedSize(widthAndHeight[0], widthAndHeight[1]);
         } else {
             ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
             layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -272,6 +296,62 @@ public class PlayActivity extends AppCompatActivity implements
                 supportActionBar.hide();
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mVideoView != null) {
+            mVideoView.stopPlayback();
+            mRealm.close();
+        }
+    }
+
+    /**
+     * 收藏监听回调
+     *
+     * @param buttonView
+     * @param isChecked
+     */
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        mRealm.beginTransaction();
+
+        if (isChecked) {
+            saveData();
+        } else {
+            clearData();
+        }
+        mRealm.commitTransaction();
+
+    }
+
+    private void saveData() {
+        if (mMovieInfo == null) {
+            Log.e(TAG, "saveData: 电影信息为空");
+            return;
+        }
+        HistoryMovieEntity movieEntity = new HistoryMovieEntity();
+        MoviePlayAll.MovieMessage content = mMovieInfo.getContent();
+        movieEntity.setName(content.getName());
+        movieEntity.setSectionNum(content.getTvsetsnumber());
+        movieEntity.setCountry(content.getArea());
+        movieEntity.setId(content.getId());
+        movieEntity.setYear(content.getYear());
+        movieEntity.setDuration(mVideoView.getDuration());
+        movieEntity.setPic(content.getMovieImageUrl());
+        movieEntity.setBlackLevel(content.getTerrorismIndex());
+        movieEntity.setPlayDate(System.currentTimeMillis());
+        mRealm.copyToRealmOrUpdate(movieEntity);
+        Log.d(TAG, "saveData: 添加成功");
+    }
+
+    private void clearData() {
+        HistoryMovieEntity entity = mRealm.where(HistoryMovieEntity.class)
+                .equalTo("id", String.valueOf(mMovieInfo.getContent().getId()))
+                .findFirst();
+        entity.deleteFromRealm();
+        Log.d(TAG, "clearData: 删除成功");
     }
 
 }

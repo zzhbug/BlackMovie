@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="5dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="5dp">
+
     <TextView
         android:id="@+id/moviename_play"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textSize="18sp"
-
         android:text=""
+
+        android:textSize="18sp"
         />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+
         <TextView
             android:id="@+id/moviearea_play"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:text=" "
             android:textColor="#ff0000"
-            android:text=" "/>
+            android:textSize="15sp"/>
+
         <TextView
             android:id="@+id/movieyear_play"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/moviearea_play"
-            android:textSize="15sp"
+            android:text=" "
             android:textColor="#ff0000"
-            android:text=" "/>
+            android:textSize="15sp"/>
+
         <TextView
             android:id="@+id/movierank_play"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/movieyear_play"
-            android:textSize="15sp"
+            android:text=""
             android:textColor="#ff0000"
-            android:text=""/>
+            android:textSize="15sp"/>
+
         <ImageView
             android:id="@+id/moviextend_play"
             android:layout_width="wrap_content"
@@ -46,30 +52,35 @@
             android:layout_alignParentRight="true"
             android:src="@mipmap/icon_extend_btn_show"/>
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/paly_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
+        android:orientation="vertical"
 
-        android:orientation="vertical">
+        android:paddingTop="5dp">
+
         <TextView
             android:id="@+id/movieactor_play"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text=""/>
+            android:text=""
+            android:textSize="15sp"/>
+
         <TextView
             android:id="@+id/moviedirector_play"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text=""/>
+            android:text=""
+            android:textSize="15sp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text=""/>
+            android:text=""
+            android:textSize="15sp"/>
+
         <TextView
             android:id="@+id/moviecontent_play"
             android:layout_width="match_parent"
@@ -78,11 +89,27 @@
             android:textSize="12sp"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkboxFollow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/icon_fav_selector"/>
+
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:layout_marginTop="5dp"
+        android:text="猜你喜欢"
 
-        android:text="猜你喜欢"/>
+        android:textSize="16sp"/>
 </LinearLayout>

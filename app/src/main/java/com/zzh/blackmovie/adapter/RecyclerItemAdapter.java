@@ -63,7 +63,6 @@ public class RecyclerItemAdapter extends RecyclerBaseAdapter<ProductmovieList> i
                 .noFade()
                 .placeholder(R.mipmap.picdefault)
                 .into(imgMoviePic);
-
     }
 
 
