@@ -1,8 +1,5 @@
 package com.zzh.blackmovie.utils;
 
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -78,10 +75,10 @@ public class ViewUtil {
         }
         return allTextViewList;
     }
-    public static void setViewBackgroundAlpha(ActionBar view, int baseColor) {
-        int rgb = baseColor;
-        Drawable drawable = new ColorDrawable(rgb);
-        if(view!=null)
-            view.setBackgroundDrawable(drawable);
-    }
+//    public static void setViewBackgroundAlpha(ActionBar view, int baseColor) {
+//        int rgb = baseColor;
+//        Drawable drawable = new ColorDrawable(rgb);
+//        if(view!=null)
+//            view.setBackgroundDrawable(drawable);
+//    }
 }
