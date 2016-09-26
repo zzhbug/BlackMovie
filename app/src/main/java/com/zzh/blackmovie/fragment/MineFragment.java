@@ -175,6 +175,7 @@ public class MineFragment extends BaseFragment {
      * 登录
      */
     private void login() {
+        Log.d(TAG, "login: " + TAG);
         Intent intent = new Intent(getActivity(), MineLoginActivity.class);
         startActivity(intent);
 

@@ -69,15 +69,15 @@ public class MineLoginActivity extends AppCompatActivity implements AMapLocation
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: " + TAG);
         setContentView(R.layout.activity_mine_login);
         ButterKnife.bind(this);
         initView();
 
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        recreate();
     }
 
     private void initView() {
+        Log.d(TAG, "initView: " + TAG);
         imgTopbarSearch.setVisibility(View.INVISIBLE);
         textTopbarTitle.setText("登录");
         //数据存储
