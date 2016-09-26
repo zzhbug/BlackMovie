@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--字体颜色-->
+    <attr name="colorValue" format="color" />
+
+    <attr name="floatValue" format="float" />
+    <attr name="integerValue" format="integer" />
+    <!--是否选中-->
+    <attr name="booleanValue" format="boolean" />
+    <!--字体大小-->
+    <attr name="dimensionValue" format="dimension" />
+    <!--字-->
+    <attr name="stringValue" format="string" />
+    <!--背景-->
+    <attr name="referenceValue" format="color|reference" />
+    <!--图片资源-->
+    <attr name="imageValue" format="reference"/>
+    <!--条目背景-->
+    <attr name="itemReferenceValue" format="color"/>
+    <!--是否可见-->
+    <attr name="curVisibility">
+    <enum name="show" value="0" />
+    <!-- Not displayed, but taken into account during layout (space is left for it). -->
+    <enum name="inshow" value="1" />
+    <!-- Completely hidden, as if the view had not been added. -->
+    <enum name="hide" value="2" />
+    </attr>
+
+</resources>
