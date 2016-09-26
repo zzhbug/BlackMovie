@@ -11,4 +11,5 @@
     <color name="colour">#DD6572</color>
     <color name="colorGray">#6d6d79</color>
     <color name="colorBg">#a7de3a03</color>
+    <color name="colorBlack">#000</color>
 </resources>
