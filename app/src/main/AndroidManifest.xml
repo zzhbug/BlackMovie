@@ -3,6 +3,9 @@
           package="com.zzh.blackmovie">
 
     <!-- 第三方权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -92,21 +95,34 @@
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
             >
+
+        </activity>
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.SplashActivity"/>
+            </activity>
         <activity android:name=".activity.MineLoginActivity"/>
         <activity android:name=".activity.MineOtherActivity" />
-        <activity android:name=".activity.PlayActivity"/>
+        <activity android:name=".activity.PlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
         <activity android:name=".activity.MoreActivity"/>
 
 
         <!-- 定位服务的注册 -->
         <service android:name="com.amap.api.location.APSService" />
+
+        <!-- Don't forgot InitActivity -->
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
     </application>
 
 </manifest>

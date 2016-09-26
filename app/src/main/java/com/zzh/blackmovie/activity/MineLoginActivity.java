@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -72,6 +73,8 @@ public class MineLoginActivity extends AppCompatActivity implements AMapLocation
         ButterKnife.bind(this);
         initView();
 
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        recreate();
     }
 
     private void initView() {
@@ -146,7 +149,7 @@ public class MineLoginActivity extends AppCompatActivity implements AMapLocation
             getPosition();
 
             //当用户名不为空时结束当前页面
-            if (screen_name != null  && mCity != null && image_url != null) {
+            if (screen_name != null && image_url != null) {
                 finish();
             }else {    //获取用户信息
                 mShareAPI.getPlatformInfo(MineLoginActivity.this, platform, umAuthListener);

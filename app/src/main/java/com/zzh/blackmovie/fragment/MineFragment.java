@@ -25,6 +25,7 @@ import com.zzh.blackmovie.ui.selfview.CircleTransformation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lib.homhomlib.design.SlidingLayout;
 
 /**
  * Created by Administrator on 2016/9/19 0019.
@@ -58,8 +59,10 @@ public class MineFragment extends BaseFragment {
     ImageView imgTopbarSearch;
     @BindView(R.id.imgTopbarBack)
     ImageView imgTopbarBack;
+    @BindView(R.id.slidingMine)
+    SlidingLayout slidingMine;
     //设标记  根据不同的标记 加载不同  布局
-    private  int tag;
+    private int tag;
 
     @Nullable
     @Override
@@ -76,10 +79,14 @@ public class MineFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "onActivityCreated: ");
-        ButterKnife.bind(this, layout);
+
+        initView();
+    }
+
+    private void initView() {
         imgTopbarSearch.setVisibility(View.INVISIBLE);
         imgTopbarBack.setVisibility(View.INVISIBLE);
-
+        slidingMine.setSlidingOffset(0.2f);
     }
 
     @OnClick({R.id.imgUserPhoto, R.id.textLogin, R.id.textSmallTitle, R.id.linearHistory, R.id.learnDownload, R.id.learnFav, R.id.learnFeedback, R.id.learnSet, R.id.learnLogout})
@@ -130,7 +137,7 @@ public class MineFragment extends BaseFragment {
      */
     private void jumpOther() {
         Intent intent = new Intent(getActivity(), MineOtherActivity.class);
-        intent.putExtra(MineOtherActivity.FRAGMENT_TAG,tag);
+        intent.putExtra(MineOtherActivity.FRAGMENT_TAG, tag);
         startActivity(intent);
     }
 
@@ -179,12 +186,12 @@ public class MineFragment extends BaseFragment {
         Log.e(TAG, "onStart: ");
         //共享参数取值
         SharedPreferences userInfo = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        Log.d(TAG, "onCreateView: " + userInfo.getString(UserInfo.OPENID,null));
+        Log.d(TAG, "onCreateView: " + userInfo.getString(UserInfo.OPENID, null));
         if (userInfo.contains(UserInfo.OPENID)) {
-            String screen_name = userInfo.getString(UserInfo.NAME,null);
+            String screen_name = userInfo.getString(UserInfo.NAME, null);
             String image_url = userInfo.getString(UserInfo.IMAGE_URL, null);
             String city = userInfo.getString(UserInfo.CITY, null);
-            changeInfo(image_url,screen_name,city);
+            changeInfo(image_url, screen_name, city);
             Log.d(TAG, "onStart: ");
         }
     }
@@ -199,10 +206,11 @@ public class MineFragment extends BaseFragment {
      * 当用户登录后修改  头像  和  登录文字
      * 并把  头像 和 登录文字  设为不可点击
      * 把  退出账号  显示
+     *
      * @param imgUrl
      * @param name
      */
-    private void changeInfo(String imgUrl,String name,String city) {
+    private void changeInfo(String imgUrl, String name, String city) {
         Picasso.with(getActivity()).load(imgUrl)
                 .transform(new CircleTransformation())
                 .into(imgUserPhoto);

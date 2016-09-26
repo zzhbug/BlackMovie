@@ -5,7 +5,7 @@
               android:layout_height="match_parent">
     <include layout="@layout/topbar_all_pager"/>
 
-   <android.support.v7.widget.RecyclerView
+   <com.lhh.ptrrv.library.PullToRefreshRecyclerView
        android:id="@+id/recycler_rank"
        android:layout_width="match_parent"
        android:layout_height="match_parent"/>

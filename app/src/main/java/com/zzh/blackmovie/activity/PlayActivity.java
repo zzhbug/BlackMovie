@@ -1,12 +1,16 @@
 package com.zzh.blackmovie.activity;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,10 +30,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.Vitamio;
+import io.vov.vitamio.widget.MediaController;
+import io.vov.vitamio.widget.VideoView;
 import okhttp3.Call;
 
-public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnItemClickListener {
+public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnItemClickListener, View.OnClickListener {
     private static final String TAG = "MainActivity";
+    public static final String MOVIE_ID = "movieid";
     @BindView(R.id.recycler_like)
     RecyclerView recyclerLike;
     private TextView movienamePlay;
@@ -37,28 +46,36 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
     private List<MovieLikeAll.LikeMovie> mData;
     private LikeAdapter mAdapter;
-    private MoviePlayAll.MovieMessage mContent;
+    private MoviePlayAll.MovieMessage mDadaMsg;
     private TextView movieareaPlay;
     private TextView movieyearPlay;
     private TextView movierankPlay;
     private TextView movieactorPlay;
     private TextView moviedirectorPlay;
     private TextView moviecontentPlay;
+    private String playUrlBy480p;
 
     private String play_url;
     private String like_url;
+    private VideoView mVideoView;
+    private ImageView moviextendPlay;
+    private LinearLayout movieExtend;
+
+    private boolean isVISIBLE = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        Vitamio.isInitialized(getApplicationContext());
         ButterKnife.bind(this);
-        int movieid = getIntent().getIntExtra("movieid",120);
-        play_url= Contants.PLAY_HEAD_URL+movieid+Contants.PLAY_FOOT_URL;
+        int movieid = getIntent().getIntExtra(MOVIE_ID, 120);
+        play_url = Contants.PLAY_HEAD_URL + movieid + Contants.PLAY_FOOT_URL;
         like_url = Contants.LIKE_HEAD_URL + movieid + Contants.LIKE_FOOT_URL;
+
         initView();
-        setView();
+        getLikeData();
 
     }
 
@@ -72,6 +89,9 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
         movieactorPlay = (TextView) inflate.findViewById(R.id.movieactor_play);
         moviedirectorPlay = (TextView) inflate.findViewById(R.id.moviedirector_play);
         moviecontentPlay = (TextView) inflate.findViewById(R.id.moviecontent_play);
+        movieExtend = ((LinearLayout) inflate.findViewById(R.id.paly_content));
+        moviextendPlay = ((ImageView) inflate.findViewById(R.id.moviextend_play));
+        moviextendPlay.setOnClickListener(this);
         getMessage();
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -103,14 +123,16 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
                     @Override
                     public void onResponse(MoviePlayAll response, int id) {
-                        mContent=response.getContent();
-                        movienamePlay.setText(mContent.getName());
-                        movieareaPlay.setText(mContent.getArea());
-                        movieyearPlay.setText(mContent.getYear());
-                        movierankPlay.setText("暗黑指数"+mContent.getTerrorismIndex());
-                        movieactorPlay.setText("主演："+mContent.getActor());
-                        moviedirectorPlay.setText("导演："+mContent.getDirector());
-                        moviecontentPlay.setText(mContent.getContent());
+                        mDadaMsg = response.getContent();
+                        movienamePlay.setText(mDadaMsg.getName());
+                        movieareaPlay.setText(mDadaMsg.getArea());
+                        movieyearPlay.setText(mDadaMsg.getYear());
+                        movierankPlay.setText("暗黑指数" + mDadaMsg.getTerrorismIndex());
+                        movieactorPlay.setText("主演：" + mDadaMsg.getActor());
+                        moviedirectorPlay.setText("导演：" + mDadaMsg.getDirector());
+                        moviecontentPlay.setText(mDadaMsg.getContent());
+                        playUrlBy480p = mDadaMsg.getPlayUrlBy480p();
+                        playfunction();
 
                     }
                 });
@@ -118,7 +140,7 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
     }
 
-    private void setView() {
+    private void getLikeData() {
         OkHttpUtils.get()
                 .url(like_url).build()
                 .execute(new BaseCallback<MovieLikeAll>(new JsonBaseSerializator()) {
@@ -135,12 +157,55 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
                 });
     }
 
+    private void playfunction() {
+        mVideoView = (VideoView) findViewById(R.id.video);
+        mVideoView.setVideoPath(playUrlBy480p);
+        mVideoView.setMediaController(new MediaController(this));
+        mVideoView.requestFocus();
+        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setPlaybackSpeed(1.0f);
+            }
+        });
+    }
+
     @Override
     public void OnItemClick(View view, int position) {
-        ToastUtil.makeText(mData.get(position-1).getName());
+        ToastUtil.makeText(mData.get(position - 1).getName());
         int id = mData.get(position - 1).getId();
-        Intent intent = new Intent(this, PlayActivity.class);
-        intent.putExtra("movieid",id);
-        startActivity(intent);
+        like_url = Contants.LIKE_HEAD_URL + id + Contants.LIKE_FOOT_URL;
+        mVideoView.stopPlayback();
+        play_url = Contants.PLAY_HEAD_URL + id + Contants.PLAY_FOOT_URL;
+        mData.clear();
+        mAdapter.notifyDataSetChanged();
+        getMessage();
+        getLikeData();
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.moviextend_play:
+                if (isVISIBLE) {
+                    Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_tag);
+                    animation.setFillAfter(true);
+                    animation.setFillBefore(false);
+                    moviextendPlay.startAnimation(animation);
+                    isVISIBLE = false;
+                    movieExtend.setVisibility(View.GONE);
+
+
+                } else {
+                    Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_tag_2);
+                    moviextendPlay.startAnimation(animation);
+                    movieExtend.setVisibility(View.VISIBLE);
+                    isVISIBLE = true;
+                }
+
+
+        }
     }
 }

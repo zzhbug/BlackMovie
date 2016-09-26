@@ -6,7 +6,6 @@ import com.squareup.picasso.Picasso;
 import com.umeng.socialize.PlatformConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
-import com.zzh.blackmovie.db.dbutils.DbConfig;
 import com.zzh.blackmovie.utils.SysState;
 import com.zzh.blackmovie.utils.ToastUtil;
 
@@ -18,6 +17,8 @@ import okhttp3.OkHttpClient;
  * Created by Administrator on 2016/9/19 0019.
  */
 public class AppContext extends Application {
+    public static AppConfig appConfig;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,6 +36,8 @@ public class AppContext extends Application {
         OkHttpUtils.initClient(okHttpClient);
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.loggingEnabled(true).build();
+
+        appConfig = new AppConfig(this);
 
         DbConfig.InitDbConfig(this);
     }

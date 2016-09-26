@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:padding="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
@@ -8,14 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:textSize="18sp"
-        android:layout_marginLeft="5dp"
+
         android:text=""
         />
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:orientation="horizontal">
+        >
         <TextView
             android:id="@+id/moviearea_play"
             android:layout_width="50dp"
@@ -27,6 +27,7 @@
             android:id="@+id/movieyear_play"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/moviearea_play"
             android:textSize="15sp"
             android:textColor="#ff0000"
             android:text=" "/>
@@ -34,16 +35,23 @@
             android:id="@+id/movierank_play"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/movieyear_play"
             android:textSize="15sp"
             android:textColor="#ff0000"
             android:text=""/>
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/moviextend_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_extend_btn_show"/>
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/paly_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
-        android:layout_marginLeft="5dp"
+
         android:orientation="vertical">
         <TextView
             android:id="@+id/movieactor_play"
@@ -75,6 +83,6 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
+
         android:text="猜你喜欢"/>
 </LinearLayout>

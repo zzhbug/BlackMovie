@@ -1,17 +1,20 @@
 package com.zzh.blackmovie.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zzh.blackmovie.R;
 import com.zzh.blackmovie.activity.PlayActivity;
@@ -21,6 +24,7 @@ import com.zzh.blackmovie.http.BaseCallback;
 import com.zzh.blackmovie.http.Contants;
 import com.zzh.blackmovie.http.JsonBaseSerializator;
 import com.zzh.blackmovie.model.MovieRankAll;
+import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;
 import com.zzh.blackmovie.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -33,7 +37,7 @@ import okhttp3.Call;
 /**
  * Created by Administrator on 2016/9/19 0019.
  */
-public class RankingFragment extends BaseFragment implements RankAdapter.OnItemClickListener{
+public class RankingFragment extends BaseFragment implements RankAdapter.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     public static final String TAG = "RankingFragment";
     @BindView(R.id.imgTopbarBack)
     ImageView imgTopbarBack;
@@ -42,9 +46,11 @@ public class RankingFragment extends BaseFragment implements RankAdapter.OnItemC
     @BindView(R.id.imgTopbarSearch)
     ImageView imgTopbarSearch;
     @BindView(R.id.recycler_rank)
-    RecyclerView recyclerRank;
+    PullToRefreshRecyclerView recyclerRank;
+
 
     private List<MovieRankAll.MovieRankContent.MovieRank> mData;
+
     private RankAdapter mAdapter;
 
     @Nullable
@@ -58,37 +64,55 @@ public class RankingFragment extends BaseFragment implements RankAdapter.OnItemC
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        imgTopbarBack.setVisibility(View.GONE);
+        imgTopbarBack.setVisibility(View.INVISIBLE);
         textTopbarTitle.setText("排行");
         initView();
-        setView();
+        setView(DOWN_DATA);
     }
 
 
     private void initView() {
-        GridLayoutManager layoutManager=new GridLayoutManager(getActivity(),3);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerRank.setLayoutManager(layoutManager);
-        mData=new ArrayList<>();
-        mAdapter = new RankAdapter(getActivity(),mData, R.layout.recycler_rank_item);
+//        设置刷新
+        recyclerRank.setSwipeEnable(true);
+        recyclerRank.setRefreshing(true);
+        recyclerRank.setOnRefreshListener(this);
+//        空白页和动画
+        View inflate = View.inflate(getActivity(), R.layout.empty_view, null);
+        recyclerRank.setEmptyView(inflate);
+        ImageView imgLoading = (ImageView) inflate.findViewById(R.id.imgLoading);
+        AnimationDrawable animationDrawable = (AnimationDrawable) imgLoading.getDrawable();
+        animationDrawable.start();
+//-----------------------------------------------------------------------------------------------
+        mData = new ArrayList<>();
+        mAdapter = new RankAdapter(getActivity(), mData, R.layout.recycler_rank_item);
         mAdapter.setOnItemClickListener(this);
         recyclerRank.setAdapter(mAdapter);
 
     }
 
-    private void setView() {
+    private void setView(final int type) {
         OkHttpUtils.get()
                 .url(Contants.RANK_URL)
                 .build()
                 .execute(new BaseCallback<MovieRankAll>(new JsonBaseSerializator()) {
                     @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
-
+                    public void onError(Call call, Exception e, int id) {}
                     @Override
                     public void onResponse(MovieRankAll response, int id) {
                         List<MovieRankAll.MovieRankContent.MovieRank> list = response.getContent().get(0).getProductmovieList();
-                        mAdapter.updataRes(list);
+                        switch (type) {
+                            case DOWN_DATA:
+                                mAdapter.downDataRes(list);
+                                break;
+                            case UP_DATA:
+                                mAdapter.updataRes(list);
+                                break;
+
+                        }
+                        recyclerRank.setOnRefreshComplete();
+
                     }
                 });
     }
@@ -96,10 +120,17 @@ public class RankingFragment extends BaseFragment implements RankAdapter.OnItemC
     @Override
     public void OnItemClick(View view, int position) {
 
-        ToastUtil.makeText(mData.get(position).getId()+"");
+        ToastUtil.makeText(mData.get(position).getId() + "");
         Intent intent = new Intent(getActivity(), PlayActivity.class);
-        int id=mData.get(position).getId();
-        intent.putExtra("movieid",id);
+        int id = mData.get(position).getId();
+        intent.putExtra("movieid", id);
         startActivity(intent);
     }
+
+    @Override
+    public void onRefresh() {
+        setView(DOWN_DATA);
+    }
+
+
 }
