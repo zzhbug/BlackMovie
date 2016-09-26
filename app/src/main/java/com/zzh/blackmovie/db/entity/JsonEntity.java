@@ -1,23 +1,21 @@
 package com.zzh.blackmovie.db.entity;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Administrator on 2016/9/22 0022.
  */
 
-public class JsonEntity {
+public class JsonEntity extends RealmObject {
 
-    private int id;
-    private long time;
-    private String url;
+    @PrimaryKey
+    private long time; //更新的时间
+
+    private String url; //json 数据对于的url
+
     private String jsonData;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public long getTime() {
         return time;
