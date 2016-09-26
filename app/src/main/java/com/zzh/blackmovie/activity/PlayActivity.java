@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.SurfaceHolder;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +25,8 @@ import com.zzh.blackmovie.http.Contants;
 import com.zzh.blackmovie.http.JsonBaseSerializator;
 import com.zzh.blackmovie.model.MovieLikeAll;
 import com.zzh.blackmovie.model.MoviePlayAll;
-import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;
+import com.zzh.blackmovie.ui.selfview.OrientationDetector;
+import com.zzh.blackmovie.utils.SysState;
 import com.zzh.blackmovie.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -36,11 +40,17 @@ import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 import okhttp3.Call;
 
-public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnItemClickListener, View.OnClickListener {
+public class PlayActivity extends AppCompatActivity implements
+        LikeAdapter.OnItemClickListener,
+        View.OnClickListener, OrientationDetector.OrientationChangeListener {
     private static final String TAG = "MainActivity";
     public static final String MOVIE_ID = "movieid";
+
+    @BindView(R.id.layoutVideo)
+    FrameLayout mVideoLayout;
     @BindView(R.id.recycler_like)
     RecyclerView recyclerLike;
+
     private TextView movienamePlay;
 
 
@@ -63,6 +73,9 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
     private boolean isVISIBLE = true;
 
+    private OrientationDetector mOrientationDetector;
+    private boolean isFullscreen = false;
+    private int cachedHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +94,16 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
 
     private void initView() {
+        cachedHeight = mVideoLayout.getHeight();
+        ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
+        cachedHeight = layoutParams.height;
+
+
+        mOrientationDetector = new OrientationDetector(this);
+        mOrientationDetector.enable();
+        mOrientationDetector.setOrientationChangeListener(this);
+
+
         View inflate = LayoutInflater.from(this).inflate(R.layout.movie_view, null);
         movienamePlay = (TextView) inflate.findViewById(R.id.moviename_play);
         movieareaPlay = (TextView) inflate.findViewById(R.id.moviearea_play);
@@ -161,6 +184,7 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
         mVideoView = (VideoView) findViewById(R.id.video);
         mVideoView.setVideoPath(playUrlBy480p);
         mVideoView.setMediaController(new MediaController(this));
+
         mVideoView.requestFocus();
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -204,8 +228,50 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
                     movieExtend.setVisibility(View.VISIBLE);
                     isVISIBLE = true;
                 }
-
-
         }
     }
+
+    @Override
+    public void onOrientationChanged(int screenOrientation, OrientationDetector.Direction direction) {
+        Log.d(TAG, "onOrientationChanged: " + screenOrientation);
+        if (screenOrientation == 0) {
+            isFullscreen = true;
+        } else {
+            isFullscreen = false;
+        }
+        onScaleChange(isFullscreen);
+    }
+
+    private void onScaleChange(boolean isFullscreen) {
+        this.isFullscreen = isFullscreen;
+        SurfaceHolder holder = mVideoView.getHolder();
+        if (isFullscreen) {
+            ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
+            int[] widthAndHeight = SysState.getSystemWidthAndHeight();
+            layoutParams.width = widthAndHeight[0];
+            layoutParams.height = widthAndHeight[1];
+            mVideoLayout.setLayoutParams(layoutParams);
+            Log.d(TAG, "onScaleChange: " + layoutParams.width + "  " + layoutParams.height);
+            holder.setFixedSize(widthAndHeight[0],widthAndHeight[1]);
+        } else {
+            ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = this.cachedHeight;
+            mVideoLayout.setLayoutParams(layoutParams);
+            holder.setFixedSize(layoutParams.width, layoutParams.height);
+        }
+        switchTitleBar(!isFullscreen);
+    }
+
+    private void switchTitleBar(boolean show) {
+        android.support.v7.app.ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            if (show) {
+                supportActionBar.show();
+            } else {
+                supportActionBar.hide();
+            }
+        }
+    }
+
 }

@@ -6,6 +6,8 @@ import com.squareup.picasso.Picasso;
 import com.umeng.socialize.PlatformConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
+import com.zzh.blackmovie.db.dbutils.DbConfig;
+import com.zzh.blackmovie.utils.AppConfig;
 import com.zzh.blackmovie.utils.SysState;
 import com.zzh.blackmovie.utils.ToastUtil;
 
