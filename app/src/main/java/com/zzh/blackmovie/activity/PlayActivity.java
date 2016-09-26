@@ -26,10 +26,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.Vitamio;
+import io.vov.vitamio.widget.MediaController;
+import io.vov.vitamio.widget.VideoView;
 import okhttp3.Call;
 
 public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnItemClickListener {
     private static final String TAG = "MainActivity";
+    public static final String MOVIE_ID = "movieid";
     @BindView(R.id.recycler_like)
     RecyclerView recyclerLike;
     private TextView movienamePlay;
@@ -44,19 +49,23 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
     private TextView movieactorPlay;
     private TextView moviedirectorPlay;
     private TextView moviecontentPlay;
+    private String playUrlBy480p;
 
     private String play_url;
     private String like_url;
+    private VideoView mVideoView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        Vitamio.isInitialized(getApplicationContext());
         ButterKnife.bind(this);
-        int movieid = getIntent().getIntExtra("movieid",120);
-        play_url= Contants.PLAY_HEAD_URL+movieid+Contants.PLAY_FOOT_URL;
+        int movieid = getIntent().getIntExtra(MOVIE_ID, 120);
+        play_url = Contants.PLAY_HEAD_URL + movieid + Contants.PLAY_FOOT_URL;
         like_url = Contants.LIKE_HEAD_URL + movieid + Contants.LIKE_FOOT_URL;
+
         initView();
         setView();
 
@@ -103,14 +112,16 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
 
                     @Override
                     public void onResponse(MoviePlayAll response, int id) {
-                        mContent=response.getContent();
+                        mContent = response.getContent();
                         movienamePlay.setText(mContent.getName());
                         movieareaPlay.setText(mContent.getArea());
                         movieyearPlay.setText(mContent.getYear());
-                        movierankPlay.setText("暗黑指数"+mContent.getTerrorismIndex());
-                        movieactorPlay.setText("主演："+mContent.getActor());
-                        moviedirectorPlay.setText("导演："+mContent.getDirector());
+                        movierankPlay.setText("暗黑指数" + mContent.getTerrorismIndex());
+                        movieactorPlay.setText("主演：" + mContent.getActor());
+                        moviedirectorPlay.setText("导演：" + mContent.getDirector());
                         moviecontentPlay.setText(mContent.getContent());
+                        playUrlBy480p = mContent.getPlayUrlBy480p();
+                        playfunction();
 
                     }
                 });
@@ -135,12 +146,31 @@ public class PlayActivity extends AppCompatActivity implements LikeAdapter.OnIte
                 });
     }
 
+    private void playfunction() {
+        mVideoView = (VideoView) findViewById(R.id.video);
+        mVideoView.setVideoPath(playUrlBy480p);
+        mVideoView.setMediaController(new MediaController(this));
+        mVideoView.requestFocus();
+        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setPlaybackSpeed(1.0f);
+            }
+        });
+    }
+
     @Override
     public void OnItemClick(View view, int position) {
-        ToastUtil.makeText(mData.get(position-1).getName());
+        ToastUtil.makeText(mData.get(position - 1).getName());
         int id = mData.get(position - 1).getId();
-        Intent intent = new Intent(this, PlayActivity.class);
-        intent.putExtra("movieid",id);
-        startActivity(intent);
+        like_url = Contants.LIKE_HEAD_URL + id + Contants.LIKE_FOOT_URL;
+        mVideoView.pause();
+        play_url = Contants.PLAY_HEAD_URL + id + Contants.PLAY_FOOT_URL;
+        mData.clear();
+        mAdapter.notifyDataSetChanged();
+        getMessage();
+        setView();
+
+
     }
 }

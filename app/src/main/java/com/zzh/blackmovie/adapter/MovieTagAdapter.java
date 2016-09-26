@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zzh.blackmovie.R;
 import com.zzh.blackmovie.activity.MoreActivity;
+import com.zzh.blackmovie.activity.PlayActivity;
 import com.zzh.blackmovie.model.DiscoverMovieContent;
 import com.zzh.blackmovie.model.ProductmovieList;
 import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;

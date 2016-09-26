@@ -1,6 +1,7 @@
 package com.zzh.blackmovie.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.zzh.blackmovie.R;
+import com.zzh.blackmovie.activity.PlayActivity;
 import com.zzh.blackmovie.model.MovieContent;
 import com.zzh.blackmovie.ui.selfview.RecyclerBaseAdapter;
 import com.zzh.blackmovie.utils.SysState;
@@ -54,5 +56,9 @@ public class MoreMovieAdapter extends RecyclerBaseAdapter<MovieContent> implemen
         int position = mRecyclerView.getChildAdapterPosition(v);
         ToastUtil.makeText(String.valueOf(position));
         //做页面跳转更具
+        int id=mData.get(position).getId();
+        Intent intent = new Intent(mContext, PlayActivity.class);
+        intent.putExtra("movieid",id);
+        mContext.startActivity(intent);
     }
 }
